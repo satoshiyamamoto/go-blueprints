@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/stretchr/objx"
+	"github.com/stretchr/signature"
 
 	"github.com/stretchr/gomniauth"
 	"github.com/stretchr/gomniauth/providers/facebook"
@@ -43,7 +44,7 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func main() {
 	var addr = flag.String("addr", ":8080", "アプリケーションのアドレス")
 	flag.Parse() // フラグを解釈します
-	gomniauth.SetSecurityKey("セキュリティキー")
+	gomniauth.SetSecurityKey(signature.RandomKey(64))
 	gomniauth.WithProviders(
 		facebook.New(
 			"2265273043493411",
